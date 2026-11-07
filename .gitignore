@@ -1,0 +1,29 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# React
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+
+# Generated files
+*.log
+.DS_Store
+
+# Large datasets
+data/v4/raw/
+data/v4/processed/*.csv
+
+# Temporary files
+*.tmp

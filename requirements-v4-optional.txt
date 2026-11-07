@@ -1,0 +1,3 @@
+# Optional benchmark algorithms (install to include all six models)
+xgboost
+catboost

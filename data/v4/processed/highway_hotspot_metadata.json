@@ -1,0 +1,9 @@
+{
+  "method": "1 km chainage bins; DBSCAN on one-dimensional chainage within corridor and side; descriptive local neighbourhood score",
+  "limitations": [
+    "Not formal Getis-Ord Gi*: no verified spatial weights or exposure denominator.",
+    "Chainage is not latitude/longitude; map requires official route geometry and chainage calibration.",
+    "Accident counts alone are not exposure-adjusted risk; traffic volume/AADT is needed.",
+    "Candidate labels are exploratory, not verified blackspots."
+  ]
+}

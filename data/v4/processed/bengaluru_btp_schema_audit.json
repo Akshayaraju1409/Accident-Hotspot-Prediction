@@ -1,0 +1,302 @@
+[
+  {
+    "file": "bengaluru_btp_1_BTP_-_Station-wise_accidents___fatalities_2018_to_2020.csv",
+    "rows": 45,
+    "columns": [
+      "Zone",
+      "Station",
+      "2018 - Fatal",
+      "2018 - Killed",
+      "2018 - Non-Fatal",
+      "2018 - Injured",
+      "2018 - Total Cases",
+      "2019 - Fatal",
+      "2019 - Killed",
+      "2019 - Non-Fatal",
+      "2019 - Injured",
+      "2019 - Total Cases",
+      "2020 - Fatal ",
+      "2020 - Killed",
+      "2020 - Non-Fatal",
+      "2020 - Injured",
+      "2020 - Total Cases "
+    ],
+    "preview": [
+      {
+        "Zone": "East",
+        "Station": "Cubbon Park",
+        "2018 - Fatal": "2",
+        "2018 - Killed": "2",
+        "2018 - Non-Fatal": "52",
+        "2018 - Injured": "53",
+        "2018 - Total Cases": "54",
+        "2019 - Fatal": "5",
+        "2019 - Killed": "5",
+        "2019 - Non-Fatal": "46",
+        "2019 - Injured": "56",
+        "2019 - Total Cases": "51",
+        "2020 - Fatal ": "2",
+        "2020 - Killed": "2",
+        "2020 - Non-Fatal": "24",
+        "2020 - Injured": "28",
+        "2020 - Total Cases ": "26"
+      },
+      {
+        "Zone": "East",
+        "Station": "H.Grounds",
+        "2018 - Fatal": "2",
+        "2018 - Killed": "2",
+        "2018 - Non-Fatal": "58",
+        "2018 - Injured": "51",
+        "2018 - Total Cases": "60",
+        "2019 - Fatal": "5",
+        "2019 - Killed": "5",
+        "2019 - Non-Fatal": "48",
+        "2019 - Injured": "54",
+        "2019 - Total Cases": "53",
+        "2020 - Fatal ": "6",
+        "2020 - Killed": "6",
+        "2020 - Non-Fatal": "39",
+        "2020 - Injured": "34",
+        "2020 - Total Cases ": "45"
+      },
+      {
+        "Zone": "East",
+        "Station": "S.S.Nagar",
+        "2018 - Fatal": "8",
+        "2018 - Killed": "8",
+        "2018 - Non-Fatal": "78",
+        "2018 - Injured": "74",
+        "2018 - Total Cases": "86",
+        "2019 - Fatal": "6",
+        "2019 - Killed": "6",
+        "2019 - Non-Fatal": "52",
+        "2019 - Injured": "54",
+        "2019 - Total Cases": "58",
+        "2020 - Fatal ": "8",
+        "2020 - Killed": "8",
+        "2020 - Non-Fatal": "51",
+        "2020 - Injured": "61",
+        "2020 - Total Cases ": "59"
+      }
+    ]
+  },
+  {
+    "file": "bengaluru_btp_2_BTP_-_Station-wise_accidents___fatalities_2020_to_2022.csv",
+    "rows": 45,
+    "columns": [
+      "Zone",
+      "Station",
+      "2021 - Fatal",
+      "2021 - Killed",
+      "2021 - Non-Fatal",
+      "2021 - Injured",
+      "2021 - Total Cases",
+      "2022 - Fatal",
+      "2022 - Killed",
+      "2022 - Non-Fatal",
+      "2022 - Injured",
+      "2022 - Total Cases"
+    ],
+    "preview": [
+      {
+        "Zone": "East",
+        "Station": "Cubbon Park",
+        "2021 - Fatal": "4",
+        "2021 - Killed": "4",
+        "2021 - Non-Fatal": "34",
+        "2021 - Injured": "35",
+        "2021 - Total Cases": "38",
+        "2022 - Fatal": "4",
+        "2022 - Killed": "5",
+        "2022 - Non-Fatal": "33",
+        "2022 - Injured": "31",
+        "2022 - Total Cases": "37"
+      },
+      {
+        "Zone": "East",
+        "Station": "H.Grounds",
+        "2021 - Fatal": "2",
+        "2021 - Killed": "2",
+        "2021 - Non-Fatal": "36",
+        "2021 - Injured": "38",
+        "2021 - Total Cases": "38",
+        "2022 - Fatal": "4",
+        "2022 - Killed": "4",
+        "2022 - Non-Fatal": "45",
+        "2022 - Injured": "33",
+        "2022 - Total Cases": "49"
+      },
+      {
+        "Zone": "East",
+        "Station": "S.S.Nagar",
+        "2021 - Fatal": "4",
+        "2021 - Killed": "4",
+        "2021 - Non-Fatal": "60",
+        "2021 - Injured": "51",
+        "2021 - Total Cases": "64",
+        "2022 - Fatal": "13",
+        "2022 - Killed": "13",
+        "2022 - Non-Fatal": "55",
+        "2022 - Injured": "50",
+        "2022 - Total Cases": "68"
+      }
+    ]
+  },
+  {
+    "file": "bengaluru_btp_3_BTP_-_Station-wise_accidents___fatalities_2023.csv",
+    "rows": 63,
+    "columns": [
+      "Zone",
+      "Sub-division",
+      "Station",
+      "2023 - Fatal Cases",
+      "2023 - Killed People",
+      "2023 - Non-Fatal",
+      "2023 - Injured People",
+      "2023 - Total Cases"
+    ],
+    "preview": [
+      {
+        "Zone": "East",
+        "Sub-division": "East",
+        "Station": "Halasooru",
+        "2023 - Fatal Cases": "11",
+        "2023 - Killed People": "11",
+        "2023 - Non-Fatal": "56",
+        "2023 - Injured People": "48",
+        "2023 - Total Cases": "67"
+      },
+      {
+        "Zone": "East",
+        "Sub-division": "East",
+        "Station": "Indiranagar",
+        "2023 - Fatal Cases": "12",
+        "2023 - Killed People": "12",
+        "2023 - Non-Fatal": "73",
+        "2023 - Injured People": "62",
+        "2023 - Total Cases": "85"
+      },
+      {
+        "Zone": "East",
+        "Sub-division": "East",
+        "Station": "Pulikeshinagar",
+        "2023 - Fatal Cases": "4",
+        "2023 - Killed People": "4",
+        "2023 - Non-Fatal": "23",
+        "2023 - Injured People": "24",
+        "2023 - Total Cases": "27"
+      }
+    ]
+  },
+  {
+    "file": "bengaluru_btp_4_Station-wise_Total_Crashes_and_Fatal_Crashes_2024.csv",
+    "rows": 65,
+    "columns": [
+      "Zone",
+      "Sub-division",
+      "Station",
+      "2024-Non Fatal",
+      "2024-Fatal crashes",
+      "2024-Total crashes"
+    ],
+    "preview": [
+      {
+        "Zone": "East",
+        "Sub-division": "East",
+        "Station": "Halasooru",
+        "2024-Non Fatal": "49",
+        "2024-Fatal crashes": "12",
+        "2024-Total crashes": "61"
+      },
+      {
+        "Zone": "East",
+        "Sub-division": "East",
+        "Station": "Indiranagar",
+        "2024-Non Fatal": "98",
+        "2024-Fatal crashes": "21",
+        "2024-Total crashes": "119"
+      },
+      {
+        "Zone": "East",
+        "Sub-division": "East",
+        "Station": "Pulikeshinagar",
+        "2024-Non Fatal": "14",
+        "2024-Fatal crashes": "4",
+        "2024-Total crashes": "18"
+      }
+    ]
+  },
+  {
+    "file": "bengaluru_btp_5_Road_Crashes_from_2007_to_2025.csv",
+    "rows": 19,
+    "columns": [
+      "Year",
+      "Fatal Road Accidents",
+      "Killed",
+      "Non-Fatal Road Accidents",
+      "Total"
+    ],
+    "preview": [
+      {
+        "Year": "2007",
+        "Fatal Road Accidents": "957",
+        "Killed": "981",
+        "Non-Fatal Road Accidents": "7,469",
+        "Total": "8,426"
+      },
+      {
+        "Year": "2008",
+        "Fatal Road Accidents": "864",
+        "Killed": "892",
+        "Non-Fatal Road Accidents": "6,908",
+        "Total": "7,772"
+      },
+      {
+        "Year": "2009",
+        "Fatal Road Accidents": "737",
+        "Killed": "761",
+        "Non-Fatal Road Accidents": "6,138",
+        "Total": "6,875"
+      }
+    ]
+  },
+  {
+    "file": "bengaluru_btp_6_Station-wise_Total_and_Fatal_Road_Crashes_2025.csv",
+    "rows": 68,
+    "columns": [
+      "Zone",
+      "Sub-division",
+      "Station",
+      "2025-Non Fatal",
+      "2025-Fatal crashes",
+      "2025-Total crashes"
+    ],
+    "preview": [
+      {
+        "Zone": "East",
+        "Sub-division": "East",
+        "Station": "Halasooru",
+        "2025-Non Fatal": "35",
+        "2025-Fatal crashes": "8",
+        "2025-Total crashes": "43"
+      },
+      {
+        "Zone": "East",
+        "Sub-division": "East",
+        "Station": "Indiranagar",
+        "2025-Non Fatal": "74",
+        "2025-Fatal crashes": "24",
+        "2025-Total crashes": "98"
+      },
+      {
+        "Zone": "East",
+        "Sub-division": "East",
+        "Station": "Pulikeshinagar",
+        "2025-Non Fatal": "9",
+        "2025-Fatal crashes": "10",
+        "2025-Total crashes": "19"
+      }
+    ]
+  }
+]

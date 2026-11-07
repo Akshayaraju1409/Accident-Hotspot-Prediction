@@ -1,0 +1,111 @@
+{
+  "target": "Accident_Severity_C",
+  "task": "severity classification among observed crashes (not crash occurrence prediction)",
+  "model": "RandomForestClassifier",
+  "split": "chronological 80/20 by distinct accident date",
+  "cutoff_date": "2018-12-02",
+  "train_rows": 3218,
+  "test_rows": 835,
+  "train_date_range": [
+    "2003-12-24",
+    "2018-06-30"
+  ],
+  "test_date_range": [
+    "2018-12-02",
+    "2023-10-11"
+  ],
+  "features": [
+    "Accident_Location_A",
+    "Accident_Location_A_Chainage_km",
+    "Accident_Location_A_Chainage_km_RoadSide",
+    "Causes_D",
+    "Road_Feature_E",
+    "Road_Condition_F",
+    "Weather_Conditions_H",
+    "Vehicle_Type_Involved_J_V1",
+    "Vehicle_Type_Involved_J_V2",
+    "weekday_from_date_iso",
+    "time_minutes",
+    "month"
+  ],
+  "balanced_accuracy": 0.30978202001802013,
+  "macro_f1": 0.2673589634174009,
+  "labels": [
+    "1",
+    "2",
+    "3",
+    "4"
+  ],
+  "confusion_matrix": [
+    [
+      7,
+      45,
+      3,
+      25
+    ],
+    [
+      31,
+      110,
+      23,
+      90
+    ],
+    [
+      24,
+      124,
+      29,
+      123
+    ],
+    [
+      4,
+      54,
+      18,
+      125
+    ]
+  ],
+  "classification_report": {
+    "1": {
+      "precision": 0.10606060606060606,
+      "recall": 0.0875,
+      "f1-score": 0.0958904109589041,
+      "support": 80.0
+    },
+    "2": {
+      "precision": 0.3303303303303303,
+      "recall": 0.4330708661417323,
+      "f1-score": 0.3747870528109029,
+      "support": 254.0
+    },
+    "3": {
+      "precision": 0.3972602739726027,
+      "recall": 0.09666666666666666,
+      "f1-score": 0.1554959785522788,
+      "support": 300.0
+    },
+    "4": {
+      "precision": 0.3443526170798898,
+      "recall": 0.6218905472636815,
+      "f1-score": 0.4432624113475177,
+      "support": 201.0
+    },
+    "accuracy": 0.32455089820359284,
+    "macro avg": {
+      "precision": 0.29450095686085725,
+      "recall": 0.30978202001802013,
+      "f1-score": 0.2673589634174009,
+      "support": 835.0
+    },
+    "weighted avg": {
+      "precision": 0.3362655216929234,
+      "recall": 0.32455089820359284,
+      "f1-score": 0.2857624940565466,
+      "support": 835.0
+    }
+  },
+  "limitations": [
+    "Event-only dataset; cannot estimate probability of a crash in a segment-time interval.",
+    "Row-level highway corridor identity is absent; geographic transfer validation is not possible.",
+    "Source weekday coding changes convention across time; date-derived weekday is used for modelling and raw source code is retained for audit.",
+    "Category codes are preserved as categories; see highway_codebook_partial.json for mappings supported by the associated paper.",
+    "Potential near-duplicate records are retained for review; only exact full-row duplicates are removed."
+  ]
+}

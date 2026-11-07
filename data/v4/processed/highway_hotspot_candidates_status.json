@@ -1,0 +1,11 @@
+{
+  "status": "blocked_pending_route_identity",
+  "message": "The CSV contains chainage but no row-level corridor ID or GPS coordinates. Accident_Location_A is urban/rural class, not corridor ID. Clustering chainage across the dataset would mix unrelated roads and produce invalid hotspots.",
+  "required_inputs": [
+    "row-level corridor/route identifier",
+    "route geometry for each corridor",
+    "validated chainage-to-coordinate calibration or network adjacency",
+    "traffic exposure/AADT if interpreting risk rather than raw crash concentration"
+  ],
+  "available_next_step": "Continue severity classification and Bengaluru station-level trend analysis; acquire route metadata before spatial hotspot detection."
+}

@@ -1,0 +1,536 @@
+{
+  "cleaning": {
+    "rows_raw": 20000,
+    "duplicate_ids_removed": 0,
+    "invalid_coords_removed": 0,
+    "invalid_dates_removed": 0,
+    "hour_time_mismatch": 0,
+    "rows_clean": 20000
+  },
+  "data_range": [
+    "2022-01-01",
+    "2025-04-15"
+  ],
+  "grid": {
+    "cells": 1137,
+    "cell_deg": 0.03,
+    "block_hours": 6
+  },
+  "hotspots_feature_window": {
+    "Bangalore": {
+      "moran_I": -0.028746389411815426,
+      "moran_p": 0.292,
+      "cells": 169,
+      "crashes": 739,
+      "dbscan_min_samples": 15
+    },
+    "Chandigarh": {
+      "moran_I": -0.03539571076105522,
+      "moran_p": 0.44,
+      "cells": 49,
+      "crashes": 809,
+      "dbscan_min_samples": 27
+    },
+    "Chennai": {
+      "moran_I": 0.002392562465377992,
+      "moran_p": 0.386,
+      "cells": 91,
+      "crashes": 802,
+      "dbscan_min_samples": 16
+    },
+    "Delhi": {
+      "moran_I": 0.007027987134559082,
+      "moran_p": 0.37,
+      "cells": 289,
+      "crashes": 743,
+      "dbscan_min_samples": 15
+    },
+    "Hyderabad": {
+      "moran_I": -0.019839405224051004,
+      "moran_p": 0.362,
+      "cells": 169,
+      "crashes": 751,
+      "dbscan_min_samples": 15
+    },
+    "Kolkata": {
+      "moran_I": 0.04272450654311484,
+      "moran_p": 0.136,
+      "cells": 100,
+      "crashes": 793,
+      "dbscan_min_samples": 15
+    },
+    "Mumbai": {
+      "moran_I": -0.06215751834308535,
+      "moran_p": 0.058,
+      "cells": 170,
+      "crashes": 756,
+      "dbscan_min_samples": 15
+    },
+    "Pune": {
+      "moran_I": 0.040234235838973995,
+      "moran_p": 0.138,
+      "cells": 100,
+      "crashes": 724,
+      "dbscan_min_samples": 15
+    },
+    "_compare": {
+      "gi_hot_cells": 2,
+      "dbscan_hot_cells": 1,
+      "overlap": 0,
+      "union": 3,
+      "jaccard": 0.0
+    }
+  },
+  "hotspots_full_period": {
+    "Bangalore": {
+      "moran_I": -0.027587955704752573,
+      "moran_p": 0.334,
+      "cells": 169,
+      "crashes": 2438,
+      "dbscan_min_samples": 21
+    },
+    "Chandigarh": {
+      "moran_I": 0.17875493716337526,
+      "moran_p": 0.008,
+      "cells": 49,
+      "crashes": 2577,
+      "dbscan_min_samples": 66
+    },
+    "Chennai": {
+      "moran_I": 0.08716101375620623,
+      "moran_p": 0.028,
+      "cells": 91,
+      "crashes": 2575,
+      "dbscan_min_samples": 35
+    },
+    "Delhi": {
+      "moran_I": -0.0344564270857543,
+      "moran_p": 0.11,
+      "cells": 289,
+      "crashes": 2433,
+      "dbscan_min_samples": 16
+    },
+    "Hyderabad": {
+      "moran_I": -0.018412031275681515,
+      "moran_p": 0.42,
+      "cells": 169,
+      "crashes": 2409,
+      "dbscan_min_samples": 21
+    },
+    "Kolkata": {
+      "moran_I": 0.020315885572782598,
+      "moran_p": 0.256,
+      "cells": 100,
+      "crashes": 2559,
+      "dbscan_min_samples": 33
+    },
+    "Mumbai": {
+      "moran_I": -0.01770528198775023,
+      "moran_p": 0.382,
+      "cells": 170,
+      "crashes": 2492,
+      "dbscan_min_samples": 22
+    },
+    "Pune": {
+      "moran_I": -0.00927824978609985,
+      "moran_p": 0.464,
+      "cells": 100,
+      "crashes": 2517,
+      "dbscan_min_samples": 32
+    },
+    "_compare": {
+      "gi_hot_cells": 1,
+      "dbscan_hot_cells": 13,
+      "overlap": 0,
+      "union": 14,
+      "jaccard": 0.0
+    }
+  },
+  "split": {
+    "train": {
+      "rows": 1660020,
+      "crashes": 6076,
+      "rate": 0.0036601968650980107
+    },
+    "val": {
+      "rows": 827736,
+      "crashes": 2974,
+      "rate": 0.0035929330124580784
+    },
+    "test": {
+      "rows": 1314372,
+      "crashes": 4805,
+      "rate": 0.0036557382537059525
+    }
+  },
+  "validation_acceptable": true,
+  "tuning_runs": [
+    {
+      "model": "LogReg (baseline)",
+      "val_pr_auc": 0.006220197511312578
+    },
+    {
+      "model": "RandomForest",
+      "val_pr_auc": 0.006024053187123244
+    },
+    {
+      "model": "XGBoost",
+      "val_pr_auc": 0.0058695556769879234
+    },
+    {
+      "model": "LightGBM",
+      "val_pr_auc": 0.006310024129931303
+    },
+    {
+      "model": "MLP",
+      "val_pr_auc": 0.005548579777013972
+    },
+    {
+      "model": "LightGBM + SMOTE (ablation)",
+      "val_pr_auc": 0.005814965362624332
+    },
+    {
+      "tuning_round": 1,
+      "config": {
+        "neg": 10,
+        "num_leaves": 7,
+        "min_child_samples": 100
+      },
+      "val_pr_auc": 0.006451218400221373
+    },
+    {
+      "tuning_round": 2,
+      "config": {
+        "neg": 10,
+        "num_leaves": 15,
+        "min_child_samples": 50
+      },
+      "val_pr_auc": 0.006350964543430441
+    },
+    {
+      "tuning_round": 3,
+      "config": {
+        "neg": 20,
+        "num_leaves": 7,
+        "min_child_samples": 100
+      },
+      "val_pr_auc": 0.006346383650832352
+    },
+    {
+      "tuning_round": 4,
+      "config": {
+        "neg": 5,
+        "num_leaves": 7,
+        "min_child_samples": 200
+      },
+      "val_pr_auc": 0.006289764114366146
+    }
+  ],
+  "chosen_config": {
+    "neg": 10,
+    "num_leaves": 7,
+    "min_child_samples": 100
+  },
+  "test_metrics": {
+    "LogReg (baseline)": {
+      "prevalence": 0.0036557382537059525,
+      "pr_auc": 0.006041411599474895,
+      "roc_auc": 0.6210047894336733,
+      "pr_auc_lift": 1.6525831939282032,
+      "recall_top10pct": 0.20561914672216441,
+      "recall_top20pct": 0.3465140478668054,
+      "precision": 0.009257594822937264,
+      "recall": 0.10718002081165452,
+      "f1": 0.017043104161495824,
+      "brier": 0.0036412938497960567,
+      "brier_ref": 0.003642373831526343,
+      "ece": 0.0005422198956709454
+    },
+    "RandomForest": {
+      "prevalence": 0.0036557382537059525,
+      "pr_auc": 0.0059665770200404995,
+      "roc_auc": 0.6134530655848947,
+      "pr_auc_lift": 1.6321127515056548,
+      "recall_top10pct": 0.19979188345473464,
+      "recall_top20pct": 0.33985431841831426,
+      "precision": 0.010112091581206774,
+      "recall": 0.0882414151925078,
+      "f1": 0.018144859313148607,
+      "brier": 0.003639730396276262,
+      "brier_ref": 0.003642373831526343,
+      "ece": 0.0001932807846384549
+    },
+    "XGBoost": {
+      "prevalence": 0.0036557382537059525,
+      "pr_auc": 0.005683177944608925,
+      "roc_auc": 0.6124439525386427,
+      "pr_auc_lift": 1.5545910429576528,
+      "recall_top10pct": 0.17585848074921956,
+      "recall_top20pct": 0.3377731529656608,
+      "precision": 0.01132404181184669,
+      "recall": 0.008116545265348595,
+      "f1": 0.009455691598981695,
+      "brier": 0.0036401599645614624,
+      "brier_ref": 0.003642373831526343,
+      "ece": 0.0002840518129461163
+    },
+    "LightGBM": {
+      "prevalence": 0.0036557382537059525,
+      "pr_auc": 0.006312237632980178,
+      "roc_auc": 0.6264709571052529,
+      "pr_auc_lift": 1.7266656404027934,
+      "recall_top10pct": 0.21040582726326743,
+      "recall_top20pct": 0.36212278876170656,
+      "precision": 0.010323364202216486,
+      "recall": 0.09906347554630593,
+      "f1": 0.0186981969595789,
+      "brier": 0.003638980995961081,
+      "brier_ref": 0.003642373831526343,
+      "ece": 0.0002373682225190722
+    },
+    "MLP": {
+      "prevalence": 0.0036557382537059525,
+      "pr_auc": 0.00484274334183154,
+      "roc_auc": 0.5769815046388065,
+      "pr_auc_lift": 1.3246964103412704,
+      "recall_top10pct": 0.1460978147762747,
+      "recall_top20pct": 0.27304890738813736,
+      "precision": 0.008550693396565352,
+      "recall": 0.024765868886576482,
+      "f1": 0.012712317060143146,
+      "brier": 0.003641505492851138,
+      "brier_ref": 0.003642373831526343,
+      "ece": 0.00034227085629599493
+    },
+    "LightGBM + SMOTE (ablation)": {
+      "prevalence": 0.0036557382537059525,
+      "pr_auc": 0.005478020897408423,
+      "roc_auc": 0.590257171348501,
+      "pr_auc_lift": 1.498471859098544,
+      "recall_top10pct": 0.18917793964620186,
+      "recall_top20pct": 0.31654526534859523,
+      "precision": 0.008432762178164528,
+      "recall": 0.039125910509885536,
+      "f1": 0.013875050739879699,
+      "brier": 0.003640772057866499,
+      "brier_ref": 0.003642373831526343,
+      "ece": 0.00017612540185081064
+    },
+    "Balanced LightGBM ensemble (final)": {
+      "prevalence": 0.0036557382537059525,
+      "pr_auc": 0.006360130027503225,
+      "roc_auc": 0.6265403831874155,
+      "pr_auc_lift": 1.7397662485971839,
+      "recall_top10pct": 0.21186264308012487,
+      "recall_top20pct": 0.3610822060353798,
+      "precision": 0.010175922731976544,
+      "recall": 0.1105098855359001,
+      "f1": 0.018635829224209033,
+      "brier": 0.0036389094104321306,
+      "brier_ref": 0.003642373831526343,
+      "ece": 0.00020644864091069068,
+      "pr_auc_ci95": [
+        0.006146375615569208,
+        0.007012906103838777
+      ]
+    },
+    "Baseline: historical cell count": {
+      "prevalence": 0.0036557382537059525,
+      "pr_auc": 0.006056546209503395,
+      "roc_auc": 0.6197045731855827,
+      "pr_auc_lift": 1.656723153897481,
+      "recall_top10pct": 0.20998959417273674,
+      "recall_top20pct": 0.3515088449531738,
+      "precision": 0.008588362068965518,
+      "recall": 0.16586888657648283,
+      "f1": 0.016331130577326984,
+      "brier": 0.003647860855097989,
+      "brier_ref": 0.003642373831526343,
+      "ece": 0.0009705635612982754
+    },
+    "Baseline: static hotspot rate (feature window)": {
+      "prevalence": 0.0036557382537059525,
+      "pr_auc": 0.005614967766831519,
+      "roc_auc": 0.6049046850078184,
+      "pr_auc_lift": 1.5359326563217226,
+      "recall_top10pct": 0.20020811654526535,
+      "recall_top20pct": 0.3396462018730489,
+      "precision": 0.009411764705882352,
+      "recall": 0.05660770031217482,
+      "f1": 0.01614003856994511,
+      "brier": 0.0036401149265308987,
+      "brier_ref": 0.003642373831526343,
+      "ece": 0.00015182113629128645
+    },
+    "Baseline: random": {
+      "prevalence": 0.0036557382537059525,
+      "pr_auc": 0.003684983094263488,
+      "roc_auc": 0.5026284099860708,
+      "pr_auc_lift": 1.007999708548031,
+      "recall_top10pct": 0.09989594172736732,
+      "recall_top20pct": 0.19583766909469302,
+      "precision": 0.003613245713551812,
+      "recall": 0.17565036420395422,
+      "f1": 0.007080833927597634,
+      "brier": 0.0036424434961275314,
+      "brier_ref": 0.003642373831526343,
+      "ece": 0.0001130990532715032,
+      "pr_auc_ci95": [
+        0.0035843190402295817,
+        0.0038075353801084034
+      ]
+    }
+  },
+  "hotspot_persistence": {
+    "gi_star": {
+      "hotspot_cells": 2,
+      "area_share": 0.001759014951627089,
+      "test_crash_share": 0.001038637307852098
+    },
+    "dbscan": {
+      "hotspot_cells": 1,
+      "area_share": 0.0008795074758135445,
+      "test_crash_share": 0.0024927295388450354
+    }
+  },
+  "cross_city_loco": {
+    "Bangalore": {
+      "pr_auc": 0.0029095425766943357,
+      "prevalence": 0.00296369853197109,
+      "lift": 0.981726901473769,
+      "roc_auc": 0.4932898249311949
+    },
+    "Chandigarh": {
+      "pr_auc": 0.010026253324321277,
+      "prevalence": 0.010186427512181344,
+      "lift": 0.9842757249616194,
+      "roc_auc": 0.4997127879218782
+    },
+    "Chennai": {
+      "pr_auc": 0.006229234035024889,
+      "prevalence": 0.005950796608236055,
+      "lift": 1.046789941770732,
+      "roc_auc": 0.5037945216696034
+    },
+    "Delhi": {
+      "pr_auc": 0.001810425396126178,
+      "prevalence": 0.0017929622490152177,
+      "lift": 1.0097398297820002,
+      "roc_auc": 0.5001036907172178
+    },
+    "Hyderabad": {
+      "pr_auc": 0.00300723480974306,
+      "prevalence": 0.0029892917835425154,
+      "lift": 1.0060024338538411,
+      "roc_auc": 0.5022114078123967
+    },
+    "Kolkata": {
+      "pr_auc": 0.005577033293603989,
+      "prevalence": 0.005207612456747405,
+      "lift": 1.0709386191704668,
+      "roc_auc": 0.5069154893290359
+    },
+    "Mumbai": {
+      "pr_auc": 0.003277514421723273,
+      "prevalence": 0.003246488906981478,
+      "lift": 1.009556636609808,
+      "roc_auc": 0.5059473621426296
+    },
+    "Pune": {
+      "pr_auc": 0.005125149261027948,
+      "prevalence": 0.005190311418685121,
+      "lift": 0.9874454242913847,
+      "roc_auc": 0.5007783913043478
+    }
+  },
+  "conditions_model": {
+    "risk_r2_test": 0.8912690773586905,
+    "risk_mae_test": 0.05130976275027167,
+    "severe_auc_val": 0.47751584024925253,
+    "severe_auc_test": 0.5223232889886199,
+    "severe_rate": 0.14935
+  },
+  "alert_thresholds": {
+    "MEDIUM": 0.46727849603132526,
+    "HIGH": 0.6571375675410961
+  },
+  "shap_global_crash_model": {
+    "lon_c": 0.11118552487364745,
+    "lat_c": 0.10986747729726133,
+    "feat_rate": 0.09324271402906957,
+    "city_code": 0.09064185786314582,
+    "cnt_all": 0.06680138573553158,
+    "gi_z": 0.029927978013811612,
+    "urban_share": 0.02898752607916045,
+    "month": 0.0280518525184896,
+    "highway_share": 0.026368157603385407,
+    "cnt_90d": 0.020105678895223758,
+    "mean_lanes": 0.0188394007178163,
+    "dow": 0.016456042544724228,
+    "signal_share": 0.011386158253363641,
+    "blk": 0.00631886792074441,
+    "cnt_30d": 0.005392039748975201,
+    "is_weekend": 0.004094874997465339,
+    "cnt_blk_90d": 0.002473013738925455,
+    "cnt_7d": 0.002084933857470594,
+    "is_peak_block": 0.001000465830745848,
+    "db_share": 0.0003503098277634685,
+    "gi_hot": 0.0,
+    "db_hot": 0.0
+  },
+  "shap_global_conditions_model": {
+    "visibility": 0.13665108164996437,
+    "traffic_density": 0.09977470152993476,
+    "is_peak_hour": 0.054289413064911855,
+    "weather": 0.03902135717441063,
+    "temperature": 0.002045150553855366,
+    "hour": 0.002039593792319554,
+    "dow": 0.0016809220397631754,
+    "lanes": 0.0012027448052827066,
+    "road_type": 0.0009340473878191981,
+    "traffic_signal": 0.0008914119923987408
+  },
+  "within_city_lift": {
+    "Bangalore": {
+      "lift": 0.9694820489727656,
+      "null_lift_mean": 1.0005605328661373,
+      "null_lift_p95": 1.0639285966041385
+    },
+    "Chandigarh": {
+      "lift": 1.0850399459369051,
+      "null_lift_mean": 1.0413559447123955,
+      "null_lift_p95": 1.146851806322191
+    },
+    "Chennai": {
+      "lift": 0.9827194433544396,
+      "null_lift_mean": 1.0156838266776365,
+      "null_lift_p95": 1.0876874506874412
+    },
+    "Delhi": {
+      "lift": 1.0025825318172512,
+      "null_lift_mean": 1.0137268707175224,
+      "null_lift_p95": 1.0903422419359208
+    },
+    "Hyderabad": {
+      "lift": 0.9967033554870917,
+      "null_lift_mean": 1.011759484274376,
+      "null_lift_p95": 1.0664291649793933
+    },
+    "Kolkata": {
+      "lift": 1.0934689049281026,
+      "null_lift_mean": 1.0060698382865765,
+      "null_lift_p95": 1.0754059438154084
+    },
+    "Mumbai": {
+      "lift": 1.0037907704964808,
+      "null_lift_mean": 1.0156259193664572,
+      "null_lift_p95": 1.0897398999466845
+    },
+    "Pune": {
+      "lift": 1.018557267563294,
+      "null_lift_mean": 1.016981102901716,
+      "null_lift_p95": 1.0970986466697195
+    }
+  },
+  "city_only_oracle_lift": 1.6386566561103248
+}

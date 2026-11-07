@@ -1,0 +1,194 @@
+[
+ {
+  "city": "Bangalore",
+  "lat": 13.087545837073279,
+  "lon": 77.58049384614732,
+  "extra_crashes": 120
+ },
+ {
+  "city": "Bangalore",
+  "lat": 13.06332951370633,
+  "lon": 77.70816889982916,
+  "extra_crashes": 122
+ },
+ {
+  "city": "Bangalore",
+  "lat": 13.15309384383248,
+  "lon": 77.56074484611386,
+  "extra_crashes": 172
+ },
+ {
+  "city": "Bangalore",
+  "lat": 12.861739334597308,
+  "lon": 77.62978438404454,
+  "extra_crashes": 93
+ },
+ {
+  "city": "Chandigarh",
+  "lat": 30.666746798781134,
+  "lon": 76.79294368703837,
+  "extra_crashes": 107
+ },
+ {
+  "city": "Chandigarh",
+  "lat": 30.751521169576556,
+  "lon": 76.7538873103737,
+  "extra_crashes": 109
+ },
+ {
+  "city": "Chandigarh",
+  "lat": 30.72360702574017,
+  "lon": 76.84305688677699,
+  "extra_crashes": 175
+ },
+ {
+  "city": "Chandigarh",
+  "lat": 30.65858807815585,
+  "lon": 76.85178806155434,
+  "extra_crashes": 135
+ },
+ {
+  "city": "Chennai",
+  "lat": 12.929021762234015,
+  "lon": 80.14640117026497,
+  "extra_crashes": 184
+ },
+ {
+  "city": "Chennai",
+  "lat": 13.108562460255873,
+  "lon": 80.14843739920398,
+  "extra_crashes": 118
+ },
+ {
+  "city": "Chennai",
+  "lat": 13.014219657402496,
+  "lon": 80.18979522651925,
+  "extra_crashes": 107
+ },
+ {
+  "city": "Chennai",
+  "lat": 12.857865166176914,
+  "lon": 80.14478803873183,
+  "extra_crashes": 179
+ },
+ {
+  "city": "Delhi",
+  "lat": 28.80772843701136,
+  "lon": 76.94197576049372,
+  "extra_crashes": 170
+ },
+ {
+  "city": "Delhi",
+  "lat": 28.564602837391153,
+  "lon": 77.20766177740578,
+  "extra_crashes": 154
+ },
+ {
+  "city": "Delhi",
+  "lat": 28.511322744212166,
+  "lon": 76.9494126937647,
+  "extra_crashes": 108
+ },
+ {
+  "city": "Delhi",
+  "lat": 28.55787334648791,
+  "lon": 77.00901642877233,
+  "extra_crashes": 60
+ },
+ {
+  "city": "Hyderabad",
+  "lat": 17.48982321000199,
+  "lon": 78.4867341822907,
+  "extra_crashes": 60
+ },
+ {
+  "city": "Hyderabad",
+  "lat": 17.40262461434469,
+  "lon": 78.38646730790782,
+  "extra_crashes": 196
+ },
+ {
+  "city": "Hyderabad",
+  "lat": 17.49094270611384,
+  "lon": 78.37450919598577,
+  "extra_crashes": 153
+ },
+ {
+  "city": "Hyderabad",
+  "lat": 17.469481570003815,
+  "lon": 78.43997395808256,
+  "extra_crashes": 169
+ },
+ {
+  "city": "Kolkata",
+  "lat": 22.471922218755008,
+  "lon": 88.39004467120756,
+  "extra_crashes": 128
+ },
+ {
+  "city": "Kolkata",
+  "lat": 22.576870575736294,
+  "lon": 88.35496480812282,
+  "extra_crashes": 104
+ },
+ {
+  "city": "Kolkata",
+  "lat": 22.582343941843003,
+  "lon": 88.29873604711418,
+  "extra_crashes": 136
+ },
+ {
+  "city": "Kolkata",
+  "lat": 22.493254858230884,
+  "lon": 88.43129920433928,
+  "extra_crashes": 150
+ },
+ {
+  "city": "Mumbai",
+  "lat": 19.130998573008586,
+  "lon": 72.92363306446428,
+  "extra_crashes": 68
+ },
+ {
+  "city": "Mumbai",
+  "lat": 19.03942791998438,
+  "lon": 72.91084882481474,
+  "extra_crashes": 199
+ },
+ {
+  "city": "Mumbai",
+  "lat": 18.97568023601324,
+  "lon": 72.86421608504136,
+  "extra_crashes": 130
+ },
+ {
+  "city": "Mumbai",
+  "lat": 18.933476029976195,
+  "lon": 72.77949926495192,
+  "extra_crashes": 126
+ },
+ {
+  "city": "Pune",
+  "lat": 18.490139028222405,
+  "lon": 73.85324404987983,
+  "extra_crashes": 122
+ },
+ {
+  "city": "Pune",
+  "lat": 18.55224833486398,
+  "lon": 73.82186285339606,
+  "extra_crashes": 110
+ },
+ {
+  "city": "Pune",
+  "lat": 18.50380794857353,
+  "lon": 73.9303334118048,
+  "extra_crashes": 75
+ },
+ {
+  "city": "Pune",
+  "lat": 18.60231062990611,
+  "lon": 73.9444789698048,
+  "extra_crashes": 85
+ }
+]

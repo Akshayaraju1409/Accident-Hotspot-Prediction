@@ -1,0 +1,14 @@
+{
+  "highway": {
+    "title": "Accident Data of Selected Indian Highways for Accident Severity Prediction Using Machine Learning Models",
+    "doi": "10.5281/zenodo.16946653",
+    "url": "https://zenodo.org/records/16946653/files/ETP_4_New_Data_Accidents.csv?download=1",
+    "license_note": "Check the record's current license and cite the dataset in research outputs."
+  },
+  "bengaluru": {
+    "title": "Bengaluru Road Crashes Data",
+    "url": "https://data.opencity.in/dataset/bengaluru-road-crashes-data",
+    "source": "Bengaluru Traffic Police via OpenCity",
+    "note": "Station-level aggregate records; not GPS-level crash events."
+  }
+}

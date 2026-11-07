@@ -1,0 +1,95 @@
+{
+  "source": "Table 3 of the associated published study, not a separately supplied official codebook",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12686657/",
+  "mappings": {
+    "Accident_Location_A": {
+      "1": "Urban",
+      "2": "Rural",
+      "3": "Unallocated"
+    },
+    "Accident_Severity_C": {
+      "1": "Fatal",
+      "2": "Grievous injury",
+      "3": "Minor injury",
+      "4": "No injury"
+    },
+    "Road_Feature_E": {
+      "1": "Single lane",
+      "2": "Two lanes",
+      "3": "Three or more lanes without central divider",
+      "4": "Four or more lanes with central divider"
+    },
+    "Road_Condition_F": {
+      "1": "Straight road",
+      "2": "Slight curve",
+      "3": "Sharp curve",
+      "4": "Flat road",
+      "5": "Gentle incline",
+      "6": "Steep incline",
+      "7": "Hump",
+      "8": "Dip"
+    },
+    "Weather_Conditions_H": {
+      "1": "Fine",
+      "2": "Mist/Fog",
+      "3": "Cloud",
+      "4": "Light rain",
+      "5": "Heavy rain",
+      "6": "Hail/Sleet",
+      "7": "Snow",
+      "8": "Strong wind",
+      "9": "Dust storm",
+      "10": "Very hot",
+      "11": "Very cold",
+      "12": "Other extraordinary weather"
+    },
+    "Vehicle_Type_Involved_J_V1": {
+      "1": "Car/Jeep/Van",
+      "2": "SUV",
+      "3": "Bus",
+      "4": "Mini bus",
+      "5": "Truck",
+      "6": "Two wheeler",
+      "7": "Three wheeler",
+      "8": "Cycle",
+      "9": "Pedestrian",
+      "10": "Tractor",
+      "11": "Unknown",
+      "12": "Animal",
+      "13": "Objects",
+      "14": "LCV",
+      "15": "MAV"
+    },
+    "Vehicle_Type_Involved_J_V2": {
+      "1": "Car/Jeep/Van",
+      "2": "SUV",
+      "3": "Bus",
+      "4": "Mini bus",
+      "5": "Truck",
+      "6": "Two wheeler",
+      "7": "Three wheeler",
+      "8": "Cycle",
+      "9": "Pedestrian",
+      "10": "Tractor",
+      "11": "Unknown",
+      "12": "Animal",
+      "13": "Objects",
+      "14": "LCV",
+      "15": "MAV"
+    }
+  },
+  "unmapped": [
+    "Causes_D",
+    "Accident_Location_A_Chainage_km_RoadSide"
+  ],
+  "day_of_week": {
+    "1": "Sunday",
+    "2": "Monday",
+    "3": "Tuesday",
+    "4": "Wednesday",
+    "5": "Thursday",
+    "6": "Friday",
+    "7": "Saturday"
+  },
+  "caution": "Use labels provisionally and cite the associated paper. Confirm ambiguous fields with the dataset authors before final research claims."
+}

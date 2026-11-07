@@ -1,0 +1,42 @@
+{
+  "source_rows": 8116,
+  "exact_full_row_duplicates_removed": 4063,
+  "exact_unique_rows": 4053,
+  "invalid_parsed_date": 0,
+  "invalid_parsed_time": 0,
+  "invalid_chainage": 0,
+  "weekday_mismatch_count_sunday_codebook": 3248,
+  "weekday_mismatch_rate_sunday_codebook": 0.8013816925734024,
+  "weekday_code_counts": {
+    "6": 626,
+    "4": 621,
+    "7": 598,
+    "5": 595,
+    "1": 554,
+    "3": 542,
+    "2": 517
+  },
+  "location_class_counts": {
+    "Rural": 3504,
+    "Urban": 549
+  },
+  "severity_counts": {
+    "Minor injury": 1542,
+    "Grievous injury": 1450,
+    "No injury": 709,
+    "Fatal": 352
+  },
+  "chainage_min": 0.2,
+  "chainage_max": 741.395,
+  "possible_duplicate_review_rows": 0,
+  "corridor_ids_available": false,
+  "gps_coordinates_available": false,
+  "limitations": [
+    "Accident_Location_A is coded urban/rural/unallocated, not a highway corridor identifier.",
+    "The file has no route/corridor ID and no latitude/longitude. Chainage values cannot safely be clustered or mapped across routes.",
+    "The Zenodo record describes four projects at dataset level, but the row-level CSV does not identify which project each accident belongs to.",
+    "The associated paper's Table 3 supplies mappings for several coded fields; Causes_D remains unmapped because its relation to the paper's Causes-D1..D4 / nature-of-accident fields is ambiguous.",
+    "The source weekday convention is inconsistent across time: records dated 2013-2018 match Monday=1..Sunday=7, while 2022-2023 match Sunday=1..Saturday=7. Use date-derived weekday for modelling and retain the original source code only for audit.",
+    "This event-only sample supports severity classification among recorded crashes, not crash/no-crash forecasting."
+  ]
+}

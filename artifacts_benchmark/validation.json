@@ -1,0 +1,41 @@
+{
+ "benchmark_detection": {
+  "gi_star": {
+   "detected_cells": 60,
+   "true_hot_cells": 59,
+   "recall": 0.1694915254237288,
+   "precision_exact": 0.16666666666666666,
+   "precision_within_1_cell": 0.95
+  },
+  "dbscan": {
+   "detected_cells": 104,
+   "true_hot_cells": 59,
+   "recall": 1.0,
+   "precision_exact": 0.5673076923076923,
+   "precision_within_1_cell": 1.0
+  },
+  "either": {
+   "detected_cells": 138,
+   "true_hot_cells": 59,
+   "recall": 1.0,
+   "precision_exact": 0.427536231884058,
+   "precision_within_1_cell": 0.9782608695652174
+  },
+  "per_hotspot": {
+   "n_hotspots": 32,
+   "recall_gi_star": 0.65625,
+   "recall_dbscan": 1.0,
+   "recall_gi_star_strong": 0.6923076923076923,
+   "recall_gi_star_weak": 0.5,
+   "recall_dbscan_strong": 1.0,
+   "recall_dbscan_weak": 1.0
+  }
+ },
+ "benchmark_capture_top10pct_cells": 0.23263829053937618,
+ "benchmark_oracle_capture_ceiling": 0.24780286058935033,
+ "original_gi_hot_cells": 1,
+ "original_dbscan_hot_cells": 13,
+ "original_cells": 1137,
+ "original_capture_top10pct_cells": 0.10469464063149149,
+ "random_baseline_capture": 0.1
+}

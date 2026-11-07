@@ -1,0 +1,45 @@
+[
+  {
+    "file": "bengaluru_btp_1_BTP_-_Station-wise_accidents___fatalities_2018_to_2020.csv",
+    "rows": 45,
+    "years": [
+      2018,
+      2019,
+      2020
+    ],
+    "status": "station_year_normalized"
+  },
+  {
+    "file": "bengaluru_btp_2_BTP_-_Station-wise_accidents___fatalities_2020_to_2022.csv",
+    "rows": 45,
+    "years": [
+      2021,
+      2022
+    ],
+    "status": "station_year_normalized"
+  },
+  {
+    "file": "bengaluru_btp_3_BTP_-_Station-wise_accidents___fatalities_2023.csv",
+    "rows": 63,
+    "years": [
+      2023
+    ],
+    "status": "station_year_normalized"
+  },
+  {
+    "file": "bengaluru_btp_4_Station-wise_Total_Crashes_and_Fatal_Crashes_2024.csv",
+    "rows": 65,
+    "years": [
+      2024
+    ],
+    "status": "station_year_normalized"
+  },
+  {
+    "file": "bengaluru_btp_6_Station-wise_Total_and_Fatal_Road_Crashes_2025.csv",
+    "rows": 68,
+    "years": [
+      2025
+    ],
+    "status": "station_year_normalized"
+  }
+]
