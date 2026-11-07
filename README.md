@@ -1,94 +1,239 @@
-# Accident hotspot & weather-risk forecast (v2: cell x time-block formulation)
+# RoadWatch – Accident Hotspot Analysis and Severity Prediction
 
-Built from the design doc, workflow and proposal, adapted to `data/indian_roads_dataset.csv`
-(20,000 crashes, 8 Indian cities, 2022-01 to 2025-04).
+**RoadWatch** is a road-safety analytics and accident severity prediction project focused on Indian road accident data. It combines accident data preprocessing, machine-learning-based severity classification and Bengaluru traffic accident analysis to support data-driven road-safety insights.
 
-## Run
+## Project Overview
+
+Road accidents are influenced by several factors, including road conditions, weather, vehicle types, accident locations and time-related patterns. Understanding these factors can help identify areas requiring further investigation and improve road-safety planning.
+
+RoadWatch aims to analyse available Indian accident datasets, identify patterns in recorded accidents and develop machine-learning models to classify accident severity.
+
+The current implementation focuses on two data sources:
+
+- **Indian highway accident dataset:** Individual accident records containing accident severity and contextual information.
+- **Bengaluru Traffic Police data:** Police-station-level accident and fatality aggregates used for temporal and geographical analysis.
+
+## Main Features
+
+### 1. Accident Data Preprocessing
+
+- Data cleaning and validation.
+- Removal of exact duplicate records.
+- Handling of missing and invalid values.
+- Standardisation of supported categorical variables.
+- Date and time feature extraction.
+- Preparation of datasets for analysis and machine-learning experiments.
+
+### 2. Accident Severity Classification
+
+RoadWatch includes a binary machine-learning classification experiment that groups accident severity into two categories:
+
+| Category | Original severity classes |
+|---|---|
+| Severe | Fatal and Grievous Injury |
+| Non-severe | Minor Injury and No Injury |
+
+The experiment compares multiple machine-learning algorithms:
+
+- Extra Trees
+- Random Forest
+- CatBoost
+- XGBoost
+- Logistic Regression
+
+A chronological train-validation-test strategy is used. Model selection and decision-threshold selection are performed using validation data, while the final test partition is held out for evaluation.
+
+**Selected model:** Extra Trees Classifier
+
+**Selected decision threshold:** 0.43
+
+#### Final Severity V2 Test Results
+
+| Metric | Result |
+|---|---:|
+| Accuracy | 57.46% |
+| Balanced Accuracy | 58.43% |
+| Severe Precision | 49.75% |
+| Severe Recall | 64.71% |
+| Severe F1-score | 56.25% |
+| Severe F2-score | 61.04% |
+| Non-severe Specificity | 52.15% |
+| ROC-AUC | 0.5985 |
+
+The binary model identified 99 of the 153 severe cases in the held-out test dataset.
+
+A four-class Extra Trees reference experiment was also conducted, achieving 30.11% accuracy and a macro F1-score of 24.56%.
+
+These results represent a research baseline. The model has limited discriminatory capability and should not be considered suitable for operational safety decisions.
+
+### 3. Bengaluru Accident Analysis
+
+The Bengaluru Traffic Police dataset provides station-level accident and fatality aggregates.
+
+The project uses this data to support analysis such as:
+
+- Year-wise accident trends.
+- Police-station-level comparisons.
+- Fatality and non-fatality patterns.
+- Identification of stations with comparatively higher recorded accident counts.
+
+The available data is aggregated by police station and year. It should not be interpreted as precise accident coordinates or individual crash locations.
+
+### 4. Dashboard and Backend
+
+RoadWatch uses a React-based frontend and a Python backend built with FastAPI.
+
+The application is intended to bring together accident analytics, severity prediction and relevant visualisations through a single interface.
+
+The dashboard should only display results supported by the available datasets and implemented backend functionality.
+
+## Datasets
+
+### Indian Highway Accident Dataset
+
+Contains individual accident records with contextual variables such as:
+
+- Accident severity.
+- Accident location classification.
+- Road features and road conditions.
+- Weather conditions.
+- Vehicle types involved.
+- Accident date and time.
+- Chainage-related information where available.
+
+**Data limitation:** The available accident records do not provide reliable GPS coordinates or corridor identifiers for all observations. Consequently, accurate geographical clustering across highway routes cannot currently be established from this dataset alone.
+
+### Bengaluru Traffic Police Dataset
+
+Contains aggregated police-station-level accident statistics across multiple years.
+
+The data supports station-level and temporal comparisons. It does not provide the individual crash coordinates needed for precise point-based hotspot mapping.
+
+## Machine Learning Methodology
+
+The Severity V2 experiment follows these steps:
+
+1. Load and preprocess accident records.
+2. Map the original severity classes into severe and non-severe categories.
+3. Extract relevant accident-context features.
+4. Divide the records chronologically into training, validation and test partitions.
+5. Train and compare candidate classification algorithms.
+6. Select the model and classification threshold using validation performance.
+7. Evaluate the selected model on the held-out test dataset.
+8. Save the evaluation metrics and trained model artifacts.
+
+The `Causes_D` variable is excluded from the V2 experiment because it may contain information recorded after an accident and could introduce target leakage.
+
+## Dataset and Modelling Limitations
+
+The current implementation has several important limitations:
+
+- The highway dataset contains recorded accidents rather than both crash and non-crash observations.
+- Reliable GPS coordinates and corridor identifiers are unavailable for the required highway spatial analysis.
+- Accident counts alone do not provide a traffic-exposure denominator.
+- The severity classifier predicts injury severity among recorded accidents, not the probability of a future accident occurring.
+- The Bengaluru data is aggregated by police station and year.
+- The severity model's predicted probabilities have not been calibrated.
+- Additional information such as traffic volume, vehicle speed, road geometry and more detailed geographical data would improve future analysis.
+
+These limitations are considered when interpreting model results and dashboard outputs.
+
+## Technology Stack
+
+| Component | Technology |
+|---|---|
+| Frontend | React |
+| Backend | Python, FastAPI |
+| Data processing | Python, Pandas, NumPy |
+| Machine learning | Scikit-learn, Extra Trees, Random Forest |
+| Additional model experiments | XGBoost, CatBoost |
+| Model evaluation | Scikit-learn metrics |
+| Model persistence | Joblib |
+| Version control | Git and GitHub |
+
+The listed technologies describe the project stack and experiment dependencies; individual libraries should only be considered part of the active execution pipeline where they are actually used.
+
+## Project Structure
+
+The repository contains the frontend, backend, data-processing code, machine-learning experiments and supporting project documentation.
+
+The exact directory structure may vary depending on the current development branch.
+
+Important Severity V2 output files include:
+
+- `highway_severity_v2_metrics.json`
+- `highway_severity_v2_validation_comparison.csv`
+- `highway_severity_v2_binary_best.joblib`
+- `highway_severity_v2_four_class_reference.joblib`
+
+These files are generated by running the Severity V2 experiment.
+
+## Running the Project
+
+### 1. Clone the repository
+
 ```bash
-pip install -r requirements.txt
-python train.py             # ~6 min: hotspots, 5 models + balanced ensemble, calibration, LOCO, SHAP -> artifacts/
-python diagnostics.py       # within-city chance test, appended to artifacts/metrics.json
-streamlit run app.py        # dashboard on the real CSV
-pytest -q tests             # 12 tests incl. planted-hotspot recovery
-
-# Method validation on a dataset where hotspots really exist (see next section)
-python make_benchmark.py                                   # -> data/benchmark_planted.csv + benchmark_truth.json
-HOTSPOT_CSV=data/benchmark_planted.csv HOTSPOT_ART=artifacts_benchmark python train.py
-HOTSPOT_CSV=data/benchmark_planted.csv HOTSPOT_ART=artifacts_benchmark python diagnostics.py
-python validate_benchmark.py                               # ground-truth recovery -> artifacts_benchmark/validation.json
-HOTSPOT_ART=artifacts_benchmark streamlit run app.py       # dashboard with the planted hotspots
+git clone https://github.com/Akshayaraju1409/Accident-Hotspot-Prediction.git
+cd Accident-Hotspot-Prediction
 ```
 
-## Read this first: what this dataset can and cannot support
-`indian_roads_dataset.csv` looks synthetic and has **no spatial or temporal crash structure**:
-- Crash locations are uniform inside each city's box (grid chi-square p = 0.09-0.97 per city), hours/days
-  are uniform, `cause` is independent of weather, and nothing predicts fatal vs non-fatal (AUC ~0.50).
-- After fixing the Gi* bug (below) the detectors find essentially nothing: Gi* (BH-FDR) flags 1 of 1,137
-  cells, DBSCAN 13, both consistent with chance. Moran's I is ~0.
-- The ensemble's overall PR-AUC lift (~1.7x) is **only the city effect** (cities with fewer cells have more
-  crashes per cell; city-only oracle 1.64). Within each city the lift is 0.97-1.09, inside the shuffled null band.
-- `risk_score` is a formula of weather, traffic density and peak hour (R2 0.89). Weather-driven alert levels
-  are real model behaviour; where-in-the-city differences are noise.
+### 2. Set up the Python environment
 
-## Bug fixed: Gi* used the wrong statistic
-`hotspots.py` read `G_Local.Zs`, which is not the Gi* z-score and understated it roughly 3x (max z ~1.6 where the
-permutation and analytic Gi* both give ~4.6). Gi* therefore could not flag anything, even obvious clusters.
-It now uses `z_sim`; `tests/test_benchmark.py::test_gi_star_uses_a_real_z_score` guards it.
+```bash
+python -m venv venv
+```
 
-## Proof the pipeline works when hotspots exist: planted-hotspot benchmark
-`make_benchmark.py` keeps every real row and adds 4,124 extra crashes around 32 KNOWN hotspot centres
-(4 per city, persistent over the whole period, skewed to peak hours and rain/fog). Because the truth is known:
+Activate the environment on Windows:
 
-| Check | Original CSV (no hotspots) | Planted benchmark |
-|---|---|---|
-| Gi* hot cells (FDR 5%) | 1 of 1,137 | 60 |
-| DBSCAN hot cells | 13 | 104 |
-| Planted hotspots found by DBSCAN (within 1 cell) | n/a | 32 of 32 |
-| Planted hotspots found by Gi* (within 1 cell) | n/a | 21 of 32 (weak ones ~50%) |
-| Share of FUTURE crashes in the past top-10% cells (random = 10%, oracle ceiling 24.8%) | 10.5% | 23.3% |
-| Within-city model lift, 8 cities (null p95 ~1.1) | 0.97-1.09 | 1.46-3.30 |
-| Test PR-AUC lift of final ensemble | 1.74 (city effect only) | 2.82 |
+```powershell
+.\venv\Scripts\Activate.ps1
+```
 
-The benchmark is a method check, not evidence about real Indian roads: it shows the code detects and forecasts
-spatial hotspots when they exist and stays quiet when they do not. Hotspot features come from the 2022 window only,
-and evaluation is on later, unseen months.
+Install the backend dependencies:
 
-## Real Indian data worth trying (checked Nov 2026)
-Crash-level data with coordinates is rarely public in India; most open data is aggregated.
-- **NHAI highway crash records (Zenodo 7773156, CC-BY 4.0)**: crash records for NH-9 Pune-Solapur (2013-18) and
-  NH-2 Barwa-Adda-Panagarh (2015-19), ~250 kB. Highway chainage rather than city grids, so it needs a 1-D
-  (km-segment) version of the grid; best real option for severity/segment hotspots.
-- **Delhi Traffic Police black spots**: Delhi's traffic police publish identified black spots (153 listed for 2025
-  in press coverage) plus annual crash reports and 2014-23 statistics on OpenCity (data.opencity.in). Useful as
-  external ground truth to validate hotspots found from any coordinates you can obtain.
-- **Bengaluru Traffic Police station-wise crashes and fatalities, 2020-22 (OpenCity)**: aggregated by station, so
-  you would use polygon/station units instead of grid cells.
-- **NCRB ADSI / MoRTH via data.gov.in, OpenCity, India Data Portal, AIKosh**: state, city, road-class and
-  place-of-occurrence counts. Aggregated only: good for context features, not point hotspots.
-- **Top-10 national blackspots (dataful.in)** and **iRAD (Integrated Road Accident Database)**: iRAD is the
-  official source and powers police-station reports, but crash-level exports are not openly downloadable.
-Free APIs the pipeline can use: Open-Meteo (already used for live weather); OpenStreetMap/Overpass for road class,
-junctions and signals as static features (not wired in yet).
+```bash
+pip install -r requirements.txt
+```
 
-## Design -> code
-| Module | File |
-|---|---|
-| M1/M2 clean, grid, cell x 6-h block counts | `data_prep.py` |
-| M3 Gi* (BH-FDR) + DBSCAN + Moran's I, method comparison | `hotspots.py` |
-| M4 features: causal rolling history + static features from 2022 only | `features.py` |
-| M5/M6/M7 split, models, calibration, metrics, bootstrap CI | `modeling.py`, `train.py` |
-| M8/M9/M10 forecast (1-6 h), risk engine, SHAP | `predict.py` |
-| M11 Streamlit + Folium dashboard | `app.py` |
+### 3. Start the backend
 
-Split: static hotspot features from 2022; train 2023; validate/calibrate/threshold 2024-H1; test 2024-07 to 2025-04.
-Imbalance: balanced bagging (5 negative-undersampled LightGBM bags; ensemble variance = uncertainty); SMOTE only as ablation.
-Alert = (P(crash) relative to the city's average cell) x (conditions risk from weather, traffic, hour) vs thresholds
-(70th / 92nd percentile of the validation score distribution; stored in `models.joblib`).
+Run the FastAPI application using the actual backend entry point configured in the repository.
 
-## Changes from the design doc
-- No weather exists for no-crash cell-hours in this data, so weather enters the alert through the conditions
-  model, not the crash-occurrence model. Weather scenario is chosen in the UI, or fetched from Open-Meteo
-  ("Auto"; no forecast -> no alert). The live API call was only tested offline (mock payload; sandbox has no internet).
-- P(severe | crash) is shown but flagged as no-skill.
-- Cross-city test is leave-one-city-out (no second dataset).
-- Not built: PostgreSQL/PostGIS (files are used), scheduled retraining, OSM road features.
+For example, if the entry point is `main.py` and the FastAPI instance is named `app`:
+
+```bash
+uvicorn main:app --reload
+```
+
+### 4. Start the frontend
+
+Navigate to the frontend directory:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Use the frontend development URL printed in the terminal to access the dashboard.
+
+**Note:** Confirm the actual backend entry point, frontend directory and available scripts in the repository before running these commands.
+
+## Future Improvements
+
+Potential future enhancements include:
+
+- Obtaining reliable geographical coordinates and highway corridor identifiers.
+- Developing route-aware spatial hotspot analysis.
+- Incorporating traffic volume and road-exposure information.
+- Improving severe accident detection and reducing false-positive predictions.
+- Evaluating additional machine-learning algorithms.
+- Calibrating model probabilities.
+- Improving the integration of Bengaluru station-level analytics with the dashboard.
+- Expanding model evaluation using additional real-world datasets.
+
+## Project Scope
+
+RoadWatch is an academic research and development project intended to explore accident data analysis and machine-learning-based severity classification.
+
+Its current results should be interpreted within the limitations of the available datasets. It is not an operational crash prediction, emergency response or road-safety decision system.

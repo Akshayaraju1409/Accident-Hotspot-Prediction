@@ -1,0 +1,497 @@
+{
+  "project": "RoadWatch V4 Severity V2",
+  "primary_task": "Binary severe-vs-non-severe classification among observed crash records",
+  "severe_definition": {
+    "positive": [
+      "1 Fatal",
+      "2 Grievous injury"
+    ],
+    "negative": [
+      "3 Minor injury",
+      "4 No injury"
+    ]
+  },
+  "not_a_crash_occurrence_model": true,
+  "split_method": "Chronological train/validation/test; model and threshold selected on validation only; final test held out.",
+  "split_boundaries": {
+    "train_before": "2017-01-01",
+    "validation_from": "2017-01-01",
+    "validation_before": "2018-12-02",
+    "test_from": "2018-12-02"
+  },
+  "split": {
+    "training": {
+      "rows": 669,
+      "start": "2013-01-09",
+      "end": "2016-12-12"
+    },
+    "validation": {
+      "rows": 573,
+      "start": "2017-01-01",
+      "end": "2018-12-01"
+    },
+    "test": {
+      "rows": 362,
+      "start": "2018-12-04",
+      "end": "2023-12-07"
+    }
+  },
+  "features": [
+    "Accident_Location_A",
+    "Accident_Location_A_Chainage_km_RoadSide",
+    "Road_Feature_E",
+    "Road_Condition_F",
+    "Weather_Conditions_H",
+    "Vehicle_Type_Involved_J_V1",
+    "Vehicle_Type_Involved_J_V2",
+    "weekday_from_date_iso",
+    "chainage_km_numeric",
+    "time_minutes",
+    "month"
+  ],
+  "excluded_feature": {
+    "Causes_D": "Excluded because it may be coded after the crash and leak outcome information."
+  },
+  "model_selection": {
+    "criterion": "Highest validation severe-class F2 subject to at least 0.50 validation specificity; ties broken by severe precision. This avoids labelling nearly every crash severe.",
+    "minimum_validation_specificity": 0.5,
+    "selected_model": "Extra Trees",
+    "selected_threshold_from_validation": 0.43,
+    "validation_model_results": [
+      {
+        "model": "Extra Trees",
+        "validation_metrics_at_selected_threshold": {
+          "threshold": 0.43,
+          "accuracy": 0.5497382198952879,
+          "balanced_accuracy": 0.5492019008163762,
+          "severe_precision": 0.5512820512820513,
+          "severe_recall": 0.593103448275862,
+          "severe_f2": 0.5842391304347826,
+          "non_severe_specificity": 0.5053003533568905,
+          "average_precision": 0.5926677419739299,
+          "confusion_matrix_labels_non_severe_0_severe_1": [
+            [
+              143,
+              140
+            ],
+            [
+              118,
+              172
+            ]
+          ],
+          "classification_report": {
+            "Non-severe": {
+              "precision": 0.5478927203065134,
+              "recall": 0.5053003533568905,
+              "f1-score": 0.5257352941176471,
+              "support": 283.0
+            },
+            "Severe": {
+              "precision": 0.5512820512820513,
+              "recall": 0.593103448275862,
+              "f1-score": 0.5714285714285714,
+              "support": 290.0
+            },
+            "accuracy": 0.5497382198952879,
+            "macro avg": {
+              "precision": 0.5495873857942823,
+              "recall": 0.5492019008163762,
+              "f1-score": 0.5485819327731092,
+              "support": 573.0
+            },
+            "weighted avg": {
+              "precision": 0.5496080885140283,
+              "recall": 0.5497382198952879,
+              "f1-score": 0.5488610365612213,
+              "support": 573.0
+            }
+          },
+          "roc_auc": 0.5681978798586572
+        },
+        "threshold_selection": {
+          "threshold": 0.43,
+          "precision": 0.5512820512820513,
+          "recall": 0.593103448275862,
+          "specificity": 0.5053003533568905,
+          "f2": 0.5842391304347826,
+          "balanced_accuracy": 0.5492019008163762
+        },
+        "validation_rows": 573
+      },
+      {
+        "model": "Random Forest",
+        "validation_metrics_at_selected_threshold": {
+          "threshold": 0.45,
+          "accuracy": 0.5532286212914486,
+          "balanced_accuracy": 0.5530339953698062,
+          "severe_precision": 0.5574324324324325,
+          "severe_recall": 0.5689655172413793,
+          "severe_f2": 0.5666208791208791,
+          "non_severe_specificity": 0.5371024734982333,
+          "average_precision": 0.5841718000262971,
+          "confusion_matrix_labels_non_severe_0_severe_1": [
+            [
+              152,
+              131
+            ],
+            [
+              125,
+              165
+            ]
+          ],
+          "classification_report": {
+            "Non-severe": {
+              "precision": 0.5487364620938628,
+              "recall": 0.5371024734982333,
+              "f1-score": 0.5428571428571428,
+              "support": 283.0
+            },
+            "Severe": {
+              "precision": 0.5574324324324325,
+              "recall": 0.5689655172413793,
+              "f1-score": 0.5631399317406144,
+              "support": 290.0
+            },
+            "accuracy": 0.5532286212914486,
+            "macro avg": {
+              "precision": 0.5530844472631476,
+              "recall": 0.5530339953698062,
+              "f1-score": 0.5529985372988786,
+              "support": 573.0
+            },
+            "weighted avg": {
+              "precision": 0.5531375640104165,
+              "recall": 0.5532286212914486,
+              "f1-score": 0.5531224286794931,
+              "support": 573.0
+            }
+          },
+          "roc_auc": 0.5632386986718655
+        },
+        "threshold_selection": {
+          "threshold": 0.45,
+          "precision": 0.5574324324324325,
+          "recall": 0.5689655172413793,
+          "specificity": 0.5371024734982333,
+          "f2": 0.5666208791208791,
+          "balanced_accuracy": 0.5530339953698062
+        },
+        "validation_rows": 573
+      },
+      {
+        "model": "CatBoost",
+        "validation_metrics_at_selected_threshold": {
+          "threshold": 0.4,
+          "accuracy": 0.5410122164048866,
+          "balanced_accuracy": 0.5407517972462532,
+          "severe_precision": 0.5451505016722408,
+          "severe_recall": 0.5620689655172414,
+          "severe_f2": 0.5586017820424949,
+          "non_severe_specificity": 0.519434628975265,
+          "average_precision": 0.5640476265003205,
+          "confusion_matrix_labels_non_severe_0_severe_1": [
+            [
+              147,
+              136
+            ],
+            [
+              127,
+              163
+            ]
+          ],
+          "classification_report": {
+            "Non-severe": {
+              "precision": 0.5364963503649635,
+              "recall": 0.519434628975265,
+              "f1-score": 0.5278276481149012,
+              "support": 283.0
+            },
+            "Severe": {
+              "precision": 0.5451505016722408,
+              "recall": 0.5620689655172414,
+              "f1-score": 0.5534804753820034,
+              "support": 290.0
+            },
+            "accuracy": 0.5410122164048866,
+            "macro avg": {
+              "precision": 0.5408234260186021,
+              "recall": 0.5407517972462532,
+              "f1-score": 0.5406540617484523,
+              "support": 573.0
+            },
+            "weighted avg": {
+              "precision": 0.5408762873267617,
+              "recall": 0.5410122164048866,
+              "f1-score": 0.5408107544106424,
+              "support": 573.0
+            }
+          },
+          "roc_auc": 0.5541367125624467
+        },
+        "threshold_selection": {
+          "threshold": 0.4,
+          "precision": 0.5451505016722408,
+          "recall": 0.5620689655172414,
+          "specificity": 0.519434628975265,
+          "f2": 0.5586017820424949,
+          "balanced_accuracy": 0.5407517972462532
+        },
+        "validation_rows": 573
+      },
+      {
+        "model": "XGBoost",
+        "validation_metrics_at_selected_threshold": {
+          "threshold": 0.44,
+          "accuracy": 0.5305410122164049,
+          "balanced_accuracy": 0.530236383574997,
+          "severe_precision": 0.5348837209302325,
+          "severe_recall": 0.5551724137931034,
+          "severe_f2": 0.5509924709103353,
+          "non_severe_specificity": 0.5053003533568905,
+          "average_precision": 0.5730685380780713,
+          "confusion_matrix_labels_non_severe_0_severe_1": [
+            [
+              143,
+              140
+            ],
+            [
+              129,
+              161
+            ]
+          ],
+          "classification_report": {
+            "Non-severe": {
+              "precision": 0.5257352941176471,
+              "recall": 0.5053003533568905,
+              "f1-score": 0.5153153153153153,
+              "support": 283.0
+            },
+            "Severe": {
+              "precision": 0.5348837209302325,
+              "recall": 0.5551724137931034,
+              "f1-score": 0.544839255499154,
+              "support": 290.0
+            },
+            "accuracy": 0.5305410122164049,
+            "macro avg": {
+              "precision": 0.5303095075239398,
+              "recall": 0.530236383574997,
+              "f1-score": 0.5300772854072346,
+              "support": 573.0
+            },
+            "weighted avg": {
+              "precision": 0.5303653879669487,
+              "recall": 0.5305410122164049,
+              "f1-score": 0.5302576236108009,
+              "support": 573.0
+            }
+          },
+          "roc_auc": 0.5570610454490069
+        },
+        "threshold_selection": {
+          "threshold": 0.44,
+          "precision": 0.5348837209302325,
+          "recall": 0.5551724137931034,
+          "specificity": 0.5053003533568905,
+          "f2": 0.5509924709103353,
+          "balanced_accuracy": 0.530236383574997
+        },
+        "validation_rows": 573
+      },
+      {
+        "model": "Logistic Regression",
+        "validation_metrics_at_selected_threshold": {
+          "threshold": 0.47,
+          "accuracy": 0.5200698080279232,
+          "balanced_accuracy": 0.5201474351163641,
+          "severe_precision": 0.5265017667844523,
+          "severe_recall": 0.5137931034482759,
+          "severe_f2": 0.5162855162855163,
+          "non_severe_specificity": 0.5265017667844523,
+          "average_precision": 0.5846787764978764,
+          "confusion_matrix_labels_non_severe_0_severe_1": [
+            [
+              149,
+              134
+            ],
+            [
+              141,
+              149
+            ]
+          ],
+          "classification_report": {
+            "Non-severe": {
+              "precision": 0.5137931034482759,
+              "recall": 0.5265017667844523,
+              "f1-score": 0.5200698080279232,
+              "support": 283.0
+            },
+            "Severe": {
+              "precision": 0.5265017667844523,
+              "recall": 0.5137931034482759,
+              "f1-score": 0.5200698080279232,
+              "support": 290.0
+            },
+            "accuracy": 0.5200698080279232,
+            "macro avg": {
+              "precision": 0.5201474351163641,
+              "recall": 0.5201474351163641,
+              "f1-score": 0.5200698080279232,
+              "support": 573.0
+            },
+            "weighted avg": {
+              "precision": 0.5202250622048049,
+              "recall": 0.5200698080279232,
+              "f1-score": 0.5200698080279232,
+              "support": 573.0
+            }
+          },
+          "roc_auc": 0.5464115998537833
+        },
+        "threshold_selection": {
+          "threshold": 0.47,
+          "precision": 0.5265017667844523,
+          "recall": 0.5137931034482759,
+          "specificity": 0.5265017667844523,
+          "f2": 0.5162855162855163,
+          "balanced_accuracy": 0.5201474351163641
+        },
+        "validation_rows": 573
+      }
+    ]
+  },
+  "final_binary_test_metrics": {
+    "threshold": 0.43,
+    "accuracy": 0.574585635359116,
+    "balanced_accuracy": 0.5842949620039404,
+    "severe_precision": 0.49748743718592964,
+    "severe_recall": 0.6470588235294118,
+    "severe_f2": 0.6103575832305794,
+    "non_severe_specificity": 0.5215311004784688,
+    "average_precision": 0.5340418869769649,
+    "confusion_matrix_labels_non_severe_0_severe_1": [
+      [
+        109,
+        100
+      ],
+      [
+        54,
+        99
+      ]
+    ],
+    "classification_report": {
+      "Non-severe": {
+        "precision": 0.6687116564417178,
+        "recall": 0.5215311004784688,
+        "f1-score": 0.5860215053763441,
+        "support": 209.0
+      },
+      "Severe": {
+        "precision": 0.49748743718592964,
+        "recall": 0.6470588235294118,
+        "f1-score": 0.5625,
+        "support": 153.0
+      },
+      "accuracy": 0.574585635359116,
+      "macro avg": {
+        "precision": 0.5830995468138237,
+        "recall": 0.5842949620039404,
+        "f1-score": 0.574260752688172,
+        "support": 362.0
+      },
+      "weighted avg": {
+        "precision": 0.5963434090767024,
+        "recall": 0.574585635359116,
+        "f1-score": 0.5760800956454584,
+        "support": 362.0
+      }
+    },
+    "roc_auc": 0.5985239390812147
+  },
+  "four_class_reference_test_metrics": {
+    "accuracy": 0.3011049723756906,
+    "balanced_accuracy": 0.27851572447160683,
+    "macro_f1": 0.24559939341065845,
+    "weighted_f1": 0.27780069215119024,
+    "class_labels": {
+      "1": "Fatal",
+      "2": "Grievous injury",
+      "3": "Minor injury",
+      "4": "No injury"
+    },
+    "confusion_matrix_labels_1_2_3_4": [
+      [
+        8,
+        2,
+        20,
+        3
+      ],
+      [
+        34,
+        21,
+        56,
+        9
+      ],
+      [
+        30,
+        11,
+        71,
+        7
+      ],
+      [
+        8,
+        8,
+        65,
+        9
+      ]
+    ],
+    "classification_report": {
+      "1": {
+        "precision": 0.1,
+        "recall": 0.24242424242424243,
+        "f1-score": 0.1415929203539823,
+        "support": 33.0
+      },
+      "2": {
+        "precision": 0.5,
+        "recall": 0.175,
+        "f1-score": 0.25925925925925924,
+        "support": 120.0
+      },
+      "3": {
+        "precision": 0.33490566037735847,
+        "recall": 0.5966386554621849,
+        "f1-score": 0.42900302114803623,
+        "support": 119.0
+      },
+      "4": {
+        "precision": 0.32142857142857145,
+        "recall": 0.1,
+        "f1-score": 0.15254237288135594,
+        "support": 90.0
+      },
+      "accuracy": 0.3011049723756906,
+      "macro avg": {
+        "precision": 0.31408355795148246,
+        "recall": 0.27851572447160683,
+        "f1-score": 0.24559939341065845,
+        "support": 362.0
+      },
+      "weighted avg": {
+        "precision": 0.3648683563908207,
+        "recall": 0.3011049723756906,
+        "f1-score": 0.27780069215119024,
+        "support": 362.0
+      }
+    }
+  },
+  "limitations": [
+    "The model estimates severity conditional on a recorded crash; it does not predict crash occurrence or location.",
+    "Severe combines fatal and grievous injury to prioritise higher-harm outcomes.",
+    "The validation and test periods are historical and contain gaps in calendar-year coverage.",
+    "Threshold was selected on validation data with a minimum specificity constraint; it must not be retuned against the final test set.",
+    "Only 11 contextual features are used; no traffic exposure, speed, road geometry, or reliable corridor identifier is available.",
+    "Model probabilities have not been calibrated; scores should not be interpreted as calibrated real-world risk.",
+    "This model is a research prototype and is not suitable for emergency or operational safety decisions."
+  ]
+}
