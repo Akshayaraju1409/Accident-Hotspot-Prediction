@@ -3,8 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import pandas as pd, numpy as np, datetime as dt
 from predict import Service, fetch_open_meteo, WeatherError
+from api.severity import router as severity_router
 app=FastAPI(title='RoadWatch API',version='1.0.0')
-app.add_middleware(CORSMiddleware,allow_origins=['http://localhost:5173'],allow_credentials=True,allow_methods=['*'],allow_headers=['*'])
+app.add_middleware(CORSMiddleware,allow_origins=['http://localhost:5173','http://127.0.0.1:5173'],allow_credentials=True,allow_methods=['*'],allow_headers=['*'])
+app.include_router(severity_router)   # /api/v4/severity/*
 _s=None
 def svc():
  global _s
@@ -64,6 +66,8 @@ def v4_status():
         "highway_hotspots": (_V4_PROCESSED / "highway_hotspot_candidates.csv").exists(),
         "bengaluru_schema_audit": (_V4_PROCESSED / "bengaluru_btp_schema_audit.json").exists(),
         "severity_model": (_V4_ARTIFACTS / "highway_severity_baseline.joblib").exists(),
+        "severity_v2_model": (_V4_ARTIFACTS / "highway_severity_v2_binary_best.joblib").exists(),
+        "severity_analysis": (_V4_ARTIFACTS / "analysis" / "severity_analysis.json").exists(),
         "note": "V4 highway chainage results are not GPS points; Bengaluru BTP data are station-level aggregates."
     }
 
@@ -82,10 +86,12 @@ def v4_highway_hotspots(limit: int = 500):
 
 @app.get("/api/v4/highway/metrics")
 def v4_highway_metrics():
-    p = _V4_ARTIFACTS / "highway_severity_metrics.json"
-    if not p.exists():
-        raise HTTPException(404, "Run python -m v4_pipeline.train_severity first.")
-    return _json.loads(p.read_text(encoding="utf-8"))
+    # Prefer the corrected V2 binary model; fall back to the older four-class baseline if V2 has not been run.
+    for name in ("highway_severity_v2_metrics.json", "highway_severity_metrics.json"):
+        p = _V4_ARTIFACTS / name
+        if p.exists():
+            return _json.loads(p.read_text(encoding="utf-8"))
+    raise HTTPException(404, "Run python -m v4_pipeline.severity_v2 first.")
 
 @app.get("/api/v4/bengaluru/audit")
 def v4_bengaluru_audit():

@@ -105,3 +105,54 @@ html { scroll-behavior: smooth; scroll-padding-top: 22px; }
 @media(max-width:1050px) { .model-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media(max-width:760px) { .model-page,.analytics-extra { grid-template-columns:1fr; } .model-page > *, .analytics-extra > * { grid-column:1!important; } .method-grid { grid-template-columns:1fr; } }
 @media(max-width:520px) { .model-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; } .model-kpis .metric-card strong { font-size:21px; } .model-callout { padding:14px; } }
+
+/* ---- Crash severity page ---- */
+.sev-page{padding-bottom:6px}
+.sev-page .model-callout{margin-bottom:14px}
+.sev-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:13px;margin-bottom:13px}
+.sev-fields{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;padding:0 18px 6px}
+.sev-fields label{display:flex;flex-direction:column;gap:6px;font-size:9px;color:#8593a6;letter-spacing:.3px}
+.sev-fields input,.sev-fields select{width:100%;min-width:0;color:#dbe3ed;background:#0c1420;border:1px solid #2a384b;border-radius:7px;padding:10px 9px;font-size:10px;outline:none;color-scheme:dark}
+.sev-fields input:focus,.sev-fields select:focus{border-color:#d78c4e}
+.sev-actions{padding:12px 18px 16px}
+.sev-error{margin:0 18px 16px}
+.sev-body{padding:0 0 10px}
+.sev-body .risk-score{margin:0 18px}
+.sev-meter{position:relative;height:8px;border-radius:5px;background:#1a2636;margin:14px 18px 6px}
+.sev-meter i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:linear-gradient(90deg,#39c9a5,#ffb547,#ff5964)}
+.sev-meter u{position:absolute;top:-4px;bottom:-4px;width:2px;background:#e8edf5;text-decoration:none}
+.sev-note{font-size:10px;line-height:1.6;color:#8795a8;margin:8px 18px}
+.sev-body .detail-section .sev-note{margin:6px 0 10px}
+.sev-bar{display:grid;grid-template-columns:150px 1fr 56px;gap:10px;align-items:center;padding:5px 0;font-size:9px;color:#a7b3c2}
+.sev-track{height:6px;border-radius:4px;background:#1a2636;overflow:hidden}
+.sev-track i{display:block;height:100%;border-radius:4px}
+.sev-track i.up{background:var(--orange)}.sev-track i.down{background:var(--green)}
+.sev-bar b{font:500 9px 'DM Mono';text-align:right}
+.sev-analysis{margin-bottom:13px}
+.sev-analysis .section-copy{font-size:10px;line-height:1.6;color:#8795a8;margin:0 18px 12px}
+.sev-analysis .table-scroll{margin-bottom:8px}
+.sev-page code{font:10px 'DM Mono';background:#1a2636;padding:2px 5px;border-radius:4px}
+@media(max-width:1000px){.sev-grid{grid-template-columns:1fr}.sev-fields{grid-template-columns:1fr}.sev-bar{grid-template-columns:110px 1fr 52px}}
+
+/* ---- severity page v2 + demo-data banner ---- */
+.demo-banner{display:flex;gap:10px;align-items:flex-start;margin:14px 0 0;padding:10px 13px;border:1px solid #5a4630;background:#2a2118;color:#d9bf9e;border-radius:9px;font-size:10px;line-height:1.55}
+.demo-banner svg{flex-shrink:0;color:var(--amber);margin-top:1px}
+.demo-banner b{color:#ffd29b}.demo-banner a{color:#ffb86b;text-decoration:underline;cursor:pointer}
+.sev-presets{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px}
+.sev-presets>span{display:flex;gap:6px;align-items:center;font:500 9px 'DM Mono';letter-spacing:.8px;color:#8795a8;margin-right:4px}
+.sev-presets button{background:#111c29;border:1px solid #2a384b;color:#b4c0cf;border-radius:999px;padding:7px 12px;font-size:10px;cursor:pointer}
+.sev-presets button:hover{border-color:#9d7048;color:#ffc17d;background:#241f1b}
+.sev-link{display:flex;gap:5px;align-items:center;background:transparent;border:1px solid #2a384b;color:#8f9db0;border-radius:6px;padding:6px 9px;font-size:9px;cursor:pointer}
+.sev-link:hover{color:#ffc17d;border-color:#9d7048}
+.sev-actions{display:flex;align-items:center;gap:12px}.sev-actions small{font-size:9px;color:#6f7f93}
+.sev-headline{display:flex;gap:14px;align-items:center;margin:2px 18px 14px;padding:13px 14px;border:1px solid #2a384b;background:#0f1a28;border-radius:10px}
+.sev-headline strong{font:600 34px 'Space Grotesk';letter-spacing:-1px;color:var(--orange)}
+.sev-headline span{font-size:10.5px;line-height:1.5;color:#b4c0cf}.sev-headline small{display:block;color:#78889d;font-size:9px;margin-top:3px}
+.sev-bar>span{display:flex;flex-direction:column;gap:2px}.sev-bar>span em{font-style:normal;color:#e4ebf3;font-size:9.5px}
+.sev-charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-bottom:13px}
+.sev-charts .sev-analysis{margin-bottom:0}
+.sev-chart{padding:0 14px 14px}
+.sev-tip{background:#0b1420f2;border:1px solid #34445a;border-radius:8px;padding:8px 10px;font-size:10px;line-height:1.6;color:#cdd7e4}
+.sev-details{padding:0 0 6px}.sev-details>summary{cursor:pointer;padding:15px 18px;font-size:11px;color:#9aa8ba}
+.sev-details>summary:hover{color:#ffc17d}
+@media(max-width:1000px){.sev-charts{grid-template-columns:1fr}}

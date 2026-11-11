@@ -83,24 +83,22 @@ def prepare_data():
     if missing:
         raise ValueError(f"Missing required columns: {missing}")
 
-    date_col = "accident_date_parsed" if "accident_date_parsed" in df else "Date"
-    dates = pd.to_datetime(df[date_col], dayfirst=True, errors="coerce")
-    if dates.isna().all() and date_col != "Date":
-        dates = pd.to_datetime(df["Date"].astype(str), dayfirst=True, errors="coerce")
-
-    # Use only date/time and pre-incident/context features. Causes_D is excluded
-    # because it may be coded after the incident and could leak outcome information.
+    n_source = len(df)
+    # accident_date_parsed is written by prepare_highway as ISO (YYYY-MM-DD). Re-parsing ISO text with
+    # dayfirst=True makes pandas infer "%Y-%d-%m": rows with day > 12 become NaT (about 60% of the data is
+    # silently dropped) and day/month are swapped on the rest (corrupting month and weekday).
+    if "accident_date_parsed" in df:
+        dates = pd.to_datetime(df["accident_date_parsed"], format="ISO8601", errors="coerce")
+    else:  # raw source column is day-first
+        dates = pd.to_datetime(df["Date"].astype(str).str.strip(), dayfirst=True, errors="coerce")
     df["__date"] = dates
-    if "weekday_from_date_iso" not in df:
-        df["weekday_from_date_iso"] = dates.dt.dayofweek.astype("Int64").astype("string")
-    else:
-        df["weekday_from_date_iso"] = dates.dt.dayofweek.astype("Int64").astype("string")
+    # Always derive weekday/month from the correctly parsed date (Causes_D stays excluded: possible leakage).
+    df["weekday_from_date_iso"] = dates.dt.day_of_week.astype("Int64").astype("string")
     if "time_minutes" not in df:
         tm = pd.to_datetime(df.get("Time_of_Accident", pd.Series(index=df.index, dtype="object")),
                             format="%H:%M", errors="coerce")
         df["time_minutes"] = tm.dt.hour * 60 + tm.dt.minute
-    if "month" not in df:
-        df["month"] = dates.dt.month
+    df["month"] = dates.dt.month
     if "chainage_km_numeric" not in df:
         source = "Accident_Location_A_Chainage_km"
         df["chainage_km_numeric"] = pd.to_numeric(df[source], errors="coerce") if source in df else np.nan
@@ -108,6 +106,10 @@ def prepare_data():
     df[TARGET] = df[TARGET].astype("string").str.strip()
     df = df.dropna(subset=["__date", TARGET]).copy()
     df = df[df[TARGET].isin(LABELS_4)].copy()
+    lost = n_source - len(df)
+    print(f"Rows: source {n_source}, usable {len(df)}, dropped {lost} ({lost / max(n_source, 1):.1%})")
+    if lost / max(n_source, 1) > 0.02:
+        raise ValueError(f"{lost} of {n_source} rows were dropped (missing date/target). Check date parsing before modelling.")
     df["severe_binary"] = df[TARGET].isin(["1", "2"]).astype(int)
     df = df.sort_values("__date").reset_index(drop=True)
 
@@ -228,6 +230,46 @@ def binary_metrics(y_true, probabilities, threshold):
         result["roc_auc"] = None
     return result
 
+def bootstrap_ci(y_true, probabilities, threshold, n_boot=2000, seed=RANDOM_STATE):
+    """95% bootstrap intervals. With a few hundred test rows an AUC of 0.60 is only +/- ~0.06 wide."""
+    rng = np.random.default_rng(seed)
+    y = np.asarray(y_true); p = np.asarray(probabilities)
+    auc, bal = [], []
+    for _ in range(n_boot):
+        i = rng.integers(0, len(y), len(y))
+        if y[i].min() == y[i].max():
+            continue
+        auc.append(roc_auc_score(y[i], p[i]))
+        bal.append(balanced_accuracy_score(y[i], (p[i] >= threshold).astype(int)))
+    return {"roc_auc_95ci": [float(np.percentile(auc, 2.5)), float(np.percentile(auc, 97.5))],
+            "balanced_accuracy_95ci": [float(np.percentile(bal, 2.5)), float(np.percentile(bal, 97.5))],
+            "n_boot": int(len(auc))}
+
+def year_profile(parts):
+    """Per-year rows / severe rate / median chainage. Large swings across years mean the chronological split
+    is also a change of road section (chainage has no corridor id), not just a change of time."""
+    rows = []
+    for name, part in parts:
+        g = part.groupby(part["__date"].dt.year)
+        for year, x in g:
+            rows.append({"partition": name, "year": int(year), "rows": int(len(x)),
+                         "severe_rate": float(x["severe_binary"].mean()),
+                         "median_chainage_km": float(pd.to_numeric(x["chainage_km_numeric"], errors="coerce").median())})
+    return rows
+
+def ablation_without_chainage(winner_name, cat_cols, num_cols, train, val, test):
+    """Does the model rely on chainage (a proxy for 'which road section / which project')?"""
+    drop = {"Accident_Location_A_Chainage_km_RoadSide", "chainage_km_numeric"}
+    cats = [c for c in cat_cols if c not in drop]; nums = [c for c in num_cols if c not in drop]
+    model = make_candidates(cats, nums)[winner_name]
+    y_tr = train["severe_binary"].astype(int).to_numpy()
+    model.fit(clean_features(train, cats, nums), y_tr, classifier__sample_weight=compute_sample_weight("balanced", y_tr))
+    out = {}
+    for name, part in [("validation", val), ("test", test)]:
+        prob = model.predict_proba(clean_features(part, cats, nums))[:, 1]
+        out[f"{name}_roc_auc"] = float(roc_auc_score(part["severe_binary"].astype(int), prob))
+    return out
+
 def main():
     ART.mkdir(parents=True, exist_ok=True)
     df, train, val, test = prepare_data()
@@ -286,6 +328,11 @@ def main():
     winner = validation_models[winner_name]["model"]
     test_prob = winner.predict_proba(X_test)[:, 1]
     test_binary = binary_metrics(y_test, test_prob, threshold)
+    test_ci = bootstrap_ci(y_test, test_prob, threshold)
+    try:
+        ablation = ablation_without_chainage(winner_name, cat_cols, num_cols, train, val, test)
+    except Exception as exc:  # diagnostic only; never block the main result
+        ablation = {"error": str(exc)}
     joblib.dump(
         {"model": winner, "threshold": threshold,
          "positive_class": "Severe (Fatal or Grievous injury)",
@@ -350,7 +397,12 @@ def main():
             "selected_threshold_from_validation": float(threshold),
             "validation_model_results": validation_results,
         },
+        "rows_used": int(len(df)),
         "final_binary_test_metrics": test_binary,
+        "final_binary_test_uncertainty": test_ci,
+        "test_severe_prevalence_(ap_chance_level)": float(y_test.mean()),
+        "ablation_without_chainage": ablation,
+        "year_profile": year_profile([("train", train), ("validation", val), ("test", test)]),
         "four_class_reference_test_metrics": four_class_metrics,
         "limitations": [
             "The model estimates severity conditional on a recorded crash; it does not predict crash occurrence or location.",
@@ -383,6 +435,8 @@ def main():
     print("\nFour-class reference:")
     print(f"macro F1: {four_class_metrics['macro_f1']:.4f}")
     print(f"balanced accuracy: {four_class_metrics['balanced_accuracy']:.4f}")
+    print(f"test ROC-AUC 95% CI: {test_ci['roc_auc_95ci']}  (chance 0.5); severe prevalence {y_test.mean():.3f}")
+    print(f"ablation without chainage: {ablation}")
     print(f"\nSaved outputs in: {ART}")
 
 if __name__ == "__main__":

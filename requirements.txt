@@ -1,3 +1,4 @@
+# Core data / ML
 pandas>=2.2
 numpy>=1.26
 scipy
@@ -6,15 +7,25 @@ xgboost
 lightgbm
 imbalanced-learn
 shap
+joblib
+pyarrow          # needed to load the saved model context (pandas string columns)
+
+# Spatial / hotspot analysis
 libpysal
 esda
 geopandas
+
+# Plotting / Streamlit app
+matplotlib
 folium
 streamlit>=1.40
 streamlit-folium
-matplotlib
+
+# Live weather + API
 requests
-joblib
-pytest
 fastapi>=0.110
 uvicorn[standard]>=0.27
+
+# Tests
+pytest
+httpx
